@@ -1,7 +1,7 @@
 package com.example.webshop.model;
 
 import com.example.webshop.entity.AccountEntity;
-import com.example.webshop.entity.PasswordEntity;
+import com.example.webshop.entity.RolesEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Password_never_use {
+public class Roles {
     private Long Id;
-    private String pass;
+    private String role;
     private AccountEntity account_id;
 
-    public Password_never_use(PasswordEntity entity) {
+    public Roles(RolesEntity entity) {
         this.Id = entity.getId();
-        this.pass = entity.getPass();
+        this.role = entity.getRole();
+        this.account_id = entity.getAccount_id();
     }
 }

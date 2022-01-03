@@ -25,7 +25,7 @@ public class AccountEntity {
     @Column(name = "tel_num", nullable = false)
     private String telephone_num;
 
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account_id")
