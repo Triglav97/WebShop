@@ -22,9 +22,9 @@ public class Account {
         this.id = entity.getId();
         this.telephone_num = entity.getTelephone_num();
         this.address = entity.getAddress();
-        this.cart_items = entity.getCart_items()
-                                .stream()
-                                .map(Item::new)
-                                .collect(Collectors.toList());
+//        this.cart_items = entity.getCart_items()
+//                                .stream()
+//                                .map(Item::new)
+//                                .collect(Collectors.toList());
     }
 }

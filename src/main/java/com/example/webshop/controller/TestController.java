@@ -56,15 +56,16 @@ public class TestController {
         }
     }
 
-    @PostMapping("/createitem")
+    //не использовать пока
+    @PostMapping("/createitemError")
     public ResponseEntity Saveitem(@RequestBody ItemEntity item) {
         try {
             itemRepo.save(item);
             ItemEntity itemWithId = itemRepo.getById(14L);
 
             AccountEntity account = accountRepo.getById(10L);
-            account.getCart_items().add(itemWithId);
-            account.setCart_items(account.getCart_items());
+//            account.getCart_items().add(itemWithId);
+//            account.setCart_items(account.getCart_items());
 
 //            System.out.println(item.toString());
 //            System.out.println(account.toString());
@@ -82,7 +83,7 @@ public class TestController {
         return ResponseEntity.ok(accountRepo.findAll());
     }
 
-    @GetMapping("/checkAll")
+    @GetMapping("/checkAll") // вывод всех сущностей
     public String CheckAll(Model model){
         List<Account> account = new ArrayList<>();
         List<AccountEntity> accountEntities = accountRepo.findAll();
@@ -114,5 +115,7 @@ public class TestController {
 
         return "CheckOutAll";
     }
+
+
 
 }

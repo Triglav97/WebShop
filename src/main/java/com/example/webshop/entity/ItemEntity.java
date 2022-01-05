@@ -22,15 +22,16 @@ public class ItemEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cart_items")
-    List<AccountEntity> accounts;
+    //связь с акком (диприкейтед)
+
+//    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cart_items")
+//    List<AccountEntity> accounts;
 
     @Override
     public String toString() {
         return "ItemEntity{" +
                 "Id=" + Id +
                 ", name='" + name + '\'' +
-                ", accounts=" + accounts +
                 '}';
     }
 }

@@ -28,31 +28,36 @@ public class AccountEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Column(name = "cart")
+    private String item_id;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account_id")
     private List<RolesEntity> roles;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "account_id")
     private PasswordEntity password;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_items",
-            joinColumns = @JoinColumn(name = "account_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id")
-    )
-    private List<ItemEntity> cart_items;
+    //не хочу делать связь из-за перегруза на бд,
+    // будет сделана строка для хранения всех
+    // id товаров в корзине
 
-    public void setCart_items(List<ItemEntity> cart_items) {
-        this.cart_items = cart_items;
-    }
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_items",
+//            joinColumns = @JoinColumn(name = "account_id"),
+//            inverseJoinColumns = @JoinColumn(name = "item_id")
+//    )
+//    private List<ItemEntity> cart_items;
+
 
     @Override
     public String toString() {
         return "AccountEntity{" +
                 "Id=" + Id +
-                ", user_name='" + name + '\'' +
+                ", name='" + name + '\'' +
                 ", telephone_num='" + telephone_num + '\'' +
-                ", cart_items=" + cart_items +
+                ", address='" + address + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }
