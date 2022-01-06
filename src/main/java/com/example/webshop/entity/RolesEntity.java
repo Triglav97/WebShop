@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -21,7 +22,11 @@ public class RolesEntity {
     @Column(name = "role", nullable = false)
     private String role;
 
-    @ManyToOne
-    @JoinColumn(name = "account_id")
-    private AccountEntity account_id;
+//    @ManyToOne
+//    @JoinColumn(name = "account_id")
+//    private AccountEntity account_id;
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "roles")
+    private List<AccountEntity> accounts;
+
 }

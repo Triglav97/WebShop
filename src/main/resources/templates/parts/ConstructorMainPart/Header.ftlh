@@ -1,5 +1,5 @@
-<header class="mb-auto">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<header>
+    <nav class="opacity-95 navbar navbar-expand-md fixed-top navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">WebShop</a>
 

@@ -8,12 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Item {
-    private Long Id;
+public class Item extends Model{
     private String name;
 
     public Item(ItemEntity entity) {
-        this.Id = entity.getId();
+        this.setId(entity.getId());
         this.name = entity.getName();
     }
 }

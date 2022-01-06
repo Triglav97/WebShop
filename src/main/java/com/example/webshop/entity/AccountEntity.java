@@ -3,9 +3,11 @@ package com.example.webshop.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.ui.Model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -31,11 +33,19 @@ public class AccountEntity {
     @Column(name = "cart")
     private String item_id;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account_id")
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private List<RolesEntity> roles;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "account_id")
     private PasswordEntity password;
+
+    //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account_id")
+    //    private Set<RolesEntity> roles;
 
     //не хочу делать связь из-за перегруза на бд,
     // будет сделана строка для хранения всех

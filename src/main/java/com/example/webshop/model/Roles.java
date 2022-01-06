@@ -9,14 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Roles {
-    private Long Id;
+public class Roles extends Model{
     private String role;
     private AccountEntity account_id;
 
     public Roles(RolesEntity entity) {
-        this.Id = entity.getId();
+        this.setId(entity.getId());
         this.role = entity.getRole();
-        this.account_id = entity.getAccount_id();
     }
 }

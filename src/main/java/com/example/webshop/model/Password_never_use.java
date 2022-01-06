@@ -9,13 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Password_never_use {
-    private Long Id;
+public class Password_never_use extends Model{
     private String pass;
     private AccountEntity account_id;
 
     public Password_never_use(PasswordEntity entity) {
-        this.Id = entity.getId();
+        this.setId(entity.getId());
         this.pass = entity.getPass();
     }
 }
