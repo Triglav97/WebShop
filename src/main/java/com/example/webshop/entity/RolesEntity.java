@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 @Data
@@ -27,6 +30,7 @@ public class RolesEntity {
 //    private AccountEntity account_id;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "roles")
+    @JsonIgnoreProperties("roles")
     private List<AccountEntity> accounts;
 
 }

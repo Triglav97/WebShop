@@ -1,13 +1,14 @@
 package com.example.webshop.entity;
 
+import java.util.List;
+
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.ui.Model;
-
-import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "account")
 public class AccountEntity {
-    @javax.persistence.Id
+    @Id
     @Column(name = "id", nullable = false)
     @SequenceGenerator(name = "accountIdSeq", sequenceName = "account_id", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accountIdSeq")
@@ -30,19 +31,28 @@ public class AccountEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "cart")
-    private String item_id;
-
     @ManyToMany
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @JsonIgnoreProperties("accounts")
     private List<RolesEntity> roles;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "account_id")
+    @JsonIgnoreProperties("account_id")
     private PasswordEntity password;
+
+    @ManyToMany
+    @JoinTable(
+        name = "account_item",
+        joinColumns = @JoinColumn(name = "account_id"),
+        inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    @JsonIgnoreProperties("accounts")
+    private List<ItemEntity> items;
+
 
     //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account_id")
     //    private Set<RolesEntity> roles;
