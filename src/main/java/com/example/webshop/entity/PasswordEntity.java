@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +25,6 @@ public class PasswordEntity {
 
     @OneToOne
     @JoinColumn(name = "account_id")
+    @JsonIgnoreProperties("password")
     private AccountEntity account_id;
 }

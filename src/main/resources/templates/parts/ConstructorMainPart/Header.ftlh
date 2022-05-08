@@ -12,7 +12,7 @@
                     <#include "NavbarDropdown.ftlh">
                     <li class="nav-item"><a class="nav-link" href="/test/checkAll">вывести всю бд</a></li>
 
-                    <li class="nav-item"><a class="nav-link" href="/admin/add/AdminAddIntoBd">добавлялки в бд(админ)</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/addIntoBd">добавлялки в бд(админ)</a></li>
                 </ul>
                 <ul class="nav navbar-nav me-0">
                     <li class="nav-item nav-link">login</li>

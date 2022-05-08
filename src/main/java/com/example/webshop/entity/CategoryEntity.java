@@ -4,7 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Data
 @AllArgsConstructor
@@ -12,9 +16,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "category")
 public class CategoryEntity {
-    @javax.persistence.Id
+    @Id
     @Column(name = "id", nullable = false)
     @SequenceGenerator(name = "categoryIdSeq", sequenceName = "category_id", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categoryIdSeq")
     private Long Id;
+
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @OneToMany(mappedBy = "category_id")
+    @Column(name = "items")
+    @JsonIgnoreProperties("category_id")
+    private List<ItemEntity> items;
 }
