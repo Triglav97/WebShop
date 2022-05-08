@@ -31,9 +31,6 @@ public class AccountEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "cart")
-    private String item_id;
-
     @ManyToMany
     @JoinTable(
             name = "user_role",
