@@ -19,7 +19,7 @@ public class MainPageController {
         return "test";
     }
 
-    @GetMapping
+    @GetMapping("/")
     public String mainPage(Map<String, Object> model) {
         return "MainPage";
     }

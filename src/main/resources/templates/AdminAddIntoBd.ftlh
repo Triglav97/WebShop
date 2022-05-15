@@ -4,6 +4,7 @@
     <#--  если дотянутся руки до js в формы нужно будет добавить novalidate  -->
     <div>
         <form method="post" action="/admin/addAccount">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
             <div>
                 <label for="validationName" class="form-label">Имя</label>
                 <input type="text" class="form-control" id="validationName" placeholder="Имя" name="name" required>
@@ -40,6 +41,7 @@
         <hr>
 
         <form method="post" action="/admin/addRole">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
             <div>
                 <label for="validationRole" class="form-label">Роль</label>
                 <input type="text" class="form-control" id="validationRole" placeholder="Роль" name="role" required>
@@ -55,6 +57,7 @@
         <hr>
 
         <form method="post" action="/admin/addCategory">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
             <div>
                 <label for="validationCategory" class="form-label">Категория</label>
                 <input type="text" class="form-control" id="validationCategory" placeholder="Категория" name="сategory" required>
@@ -70,6 +73,7 @@
         <hr>
 
         <form method="post" action="/admin/addCorp">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
             <div>
                 <label for="validationCorp" class="form-label">Фирма</label>
                 <input type="text" class="form-control" id="validationCorp" placeholder="Фирма" name="corp" required>
@@ -85,6 +89,7 @@
         <hr>
 
         <form method="post" action="/admin/addItem" enctype="multipart/form-data" modelAttribute="par">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
             <div>
                 <label for="validationItemName" class="form-label">Наименование товара</label>
                 <input type="text" class="form-control" id="validationItemName" placeholder="Наименование товара" name="itemName" required>

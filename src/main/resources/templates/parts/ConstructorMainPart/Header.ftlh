@@ -10,12 +10,15 @@
             <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                 <ul class="nav navbar-nav me-auto">
                     <#include "NavbarDropdown.ftlh">
-                    <li class="nav-item"><a class="nav-link" href="/test/checkAll">вывести всю бд</a></li>
+                    <#--  <li class="nav-item"><a class="nav-link" href="/test/checkAll">вывести всю бд</a></li>  -->
 
                     <li class="nav-item"><a class="nav-link" href="/admin/addIntoBd">добавлялки в бд(админ)</a></li>
                 </ul>
                 <ul class="nav navbar-nav me-0">
-                    <li class="nav-item nav-link">login</li>
+                    <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
+                </ul>
+                <ul class="nav navbar-nav me-0">
+                    <li class="nav-item"><a class="nav-link" href="/logout">logout</a></li>
                 </ul>
             </div>
         </div>

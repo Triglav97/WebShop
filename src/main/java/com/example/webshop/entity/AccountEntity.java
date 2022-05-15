@@ -1,10 +1,26 @@
 package com.example.webshop.entity;
 
+import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +31,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "account")
-public class AccountEntity {
+public class AccountEntity implements UserDetails{
     @Id
     @Column(name = "id", nullable = false)
     @SequenceGenerator(name = "accountIdSeq", sequenceName = "account_id", allocationSize = 1)
@@ -31,7 +47,7 @@ public class AccountEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "account_id"),
@@ -40,11 +56,11 @@ public class AccountEntity {
     @JsonIgnoreProperties("accounts")
     private List<RolesEntity> roles;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "account_id")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "account_id", fetch = FetchType.EAGER)
     @JsonIgnoreProperties("account_id")
     private PasswordEntity password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "account_item",
         joinColumns = @JoinColumn(name = "account_id"),
@@ -54,6 +70,40 @@ public class AccountEntity {
     private List<ItemEntity> items;
 
 
+    @Override
+    public String getUsername() {
+        return name;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    @Override
+    public String getPassword() {
+        return getPassword();
+    }
     //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account_id")
     //    private Set<RolesEntity> roles;
 

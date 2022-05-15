@@ -31,13 +31,15 @@ public class ItemEntity {
     
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("items")
     private CategoryEntity category_id;
 
     @ManyToOne
     @JoinColumn(name = "corp_id", referencedColumnName = "id")
-    private CorpNameEntity corp_id;
+    @JsonIgnoreProperties("items")
+    private CorpEntity corp_id;
 
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(mappedBy = "items", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("items")
     private List<AccountEntity> accounts;
 

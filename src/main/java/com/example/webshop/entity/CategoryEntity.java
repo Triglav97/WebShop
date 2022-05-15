@@ -25,7 +25,7 @@ public class CategoryEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "category_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category_id")
     @Column(name = "items")
     @JsonIgnoreProperties("category_id")
     private List<ItemEntity> items;

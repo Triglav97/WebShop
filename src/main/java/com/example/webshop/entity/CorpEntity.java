@@ -14,18 +14,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "corpname")
-public class CorpNameEntity {
+@Table(name = "corp")
+public class CorpEntity {
     @Id
     @Column(name = "id", nullable = false)
-    @SequenceGenerator(name = "corpnameIdSeq", sequenceName = "corpname_id", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "corpnameIdSeq")
+    @SequenceGenerator(name = "corpIdSeq", sequenceName = "corp_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "corpIdSeq")
     private Long Id;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "corp_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "corp_id")
     @Column(name = "items")
     @JsonIgnoreProperties("corp_id")
     private List<ItemEntity> items;

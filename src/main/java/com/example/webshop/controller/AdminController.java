@@ -2,52 +2,35 @@ package com.example.webshop.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-
-
 import com.example.webshop.entity.AccountEntity;
 import com.example.webshop.entity.CategoryEntity;
-import com.example.webshop.entity.CorpNameEntity;
+import com.example.webshop.entity.CorpEntity;
 import com.example.webshop.entity.ItemEntity;
 import com.example.webshop.entity.PasswordEntity;
 import com.example.webshop.entity.RolesEntity;
 import com.example.webshop.repository.AccountRepo;
 import com.example.webshop.repository.CategoryItemRepo;
-import com.example.webshop.repository.CorpNameRepo;
+import com.example.webshop.repository.CorpRepo;
 import com.example.webshop.repository.ItemRepo;
 import com.example.webshop.repository.PasswordRepo;
 import com.example.webshop.repository.RolesRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.core.io.Resource;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.server.reactive.ContextPathCompositeHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import ch.qos.logback.core.Context;
 
 @Controller
 @RequestMapping("/admin")
@@ -68,7 +51,7 @@ public class AdminController {
     private CategoryItemRepo categoryItemRepo;
 
     @Autowired
-    private CorpNameRepo corpNameRepo;
+    private CorpRepo corpNameRepo;
 
     @Autowired
     private ItemRepo itemRepo;
@@ -78,7 +61,7 @@ public class AdminController {
         List<CategoryEntity> categoryEntities = categoryItemRepo.findAll();
         model.addAttribute("Categories", categoryEntities);
 
-        List<CorpNameEntity> corpNameEntities = corpNameRepo.findAll();
+        List<CorpEntity> corpNameEntities = corpNameRepo.findAll();
         model.addAttribute("Corps", corpNameEntities);
 
         return "AdminAddIntoBd";
@@ -124,7 +107,7 @@ public class AdminController {
 
     @PostMapping("/addCorp")
     public String addCorp(@RequestParam Map<String, String> par){
-        CorpNameEntity corpNameEntity = new CorpNameEntity();
+        CorpEntity corpNameEntity = new CorpEntity();
         corpNameEntity.setName(par.get("corp"));
 
         corpNameRepo.save(corpNameEntity);
@@ -149,7 +132,7 @@ public class AdminController {
             categoryEntity = categoryItemRepo.findByName(par.get("categoryName")).get(0);
             itemEntity.setCategory_id(categoryEntity);
 
-            CorpNameEntity corpNameEntity = new CorpNameEntity();
+            CorpEntity corpNameEntity = new CorpEntity();
             corpNameEntity = corpNameRepo.findByName(par.get("corpName")).get(0);
             itemEntity.setCorp_id(corpNameEntity);
             
@@ -170,5 +153,16 @@ public class AdminController {
         return accountEntities != null && !accountEntities.isEmpty()
                ? new ResponseEntity<>(accountEntities, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping(value = "/deleteAccById")
+    public ResponseEntity<?> deleteAccById(@RequestParam Long id){
+        AccountEntity accountEntity = (accountRepo.findById(id).stream().toList()).get(0);
+        
+        //corpNameRepo.deleteById(id);
+        
+        return accountEntity != null
+                ? new ResponseEntity<>(accountEntity, HttpStatus.OK)
+                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
